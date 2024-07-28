@@ -1,26 +1,31 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <UserForm :userToEdit="userToEdit" @user-updated="refreshList" />
+    <UserList @edit-user="editUser" />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import UserForm from './components/UserForm.vue';
+import UserList from './components/UserList.vue';
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
+    UserForm,
+    UserList
+  },
+  data() {
+    return {
+      userToEdit: null
+    };
+  },
+  methods: {
+    editUser(user) {
+      this.userToEdit = user;
+    },
+    refreshList() {
+      this.userToEdit = null; 
+    }
   }
-}
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
